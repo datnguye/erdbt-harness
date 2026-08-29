@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Format check
+        run: cargo fmt --all --check
+
+      - name: Lint
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Tests
+        run: cargo test
+
+      - name: Committed plugin tree matches its sources
+        run: cargo run -- check
+
+      - name: Render is reproducible
+        run: |
+          cargo run -- render
+          git diff --exit-code
+
+      - name: Plugin version is consistent everywhere
+        run: |
+          authored=$(grep -m1 '^version:' src/erdbt-core/plugin.yaml | sed 's/version: *//')
+          check() {
+            found=$(jq -r "$2" "$1")
+            if [ "$found" != "$authored" ]; then
+              echo "::error::$1 is '$found' but plugin.yaml says '$authored' — run 'erdbt bump'" >&2
+              exit 1
+            fi
+          }
+          check plugins/erdbt/.claude-plugin/plugin.json '.version'
+          check .claude-plugin/marketplace.json '.plugins[0].version'
+          check copilot-plugins/erdbt/plugin.json '.version'
+          check .github/plugin/marketplace.json '.plugins[0].version'
+          echo "plugin version $authored is consistent"
+
+      - name: Crate version stays a placeholder
+        run: |
+          version=$(grep -m1 '^version = ' src/erdbt-core/Cargo.toml | sed 's/.*"\(.*\)"/\1/')
+          if [ "$version" != "0.0.0" ]; then
+            echo "::error::src/erdbt-core/Cargo.toml must stay 0.0.0; the release workflow stamps it from the tag (found '$version')" >&2
+            exit 1
+          fi

@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${PLUGIN_ROOT}/hooks/ir-lint.sh\"",
+            "timeout": 10,
+            "statusMessage": "Linting IR..."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "agents": "agents/",
+  "author": {
+    "email": "datnguyen.it09@gmail.com",
+    "name": "Dat Nguyen",
+    "url": "https://github.com/datnguye"
+  },
+  "commands": "commands/",
+  "description": "Human-gated ERD-to-dbt harness. Requirements to concept to logical model to dbt, with a sign-off at every gate.",
+  "homepage": "https://github.com/datnguye/erdbt-harness",
+  "hooks": "hooks/hooks.json",
+  "keywords": [
+    "dbt",
+    "erd",
+    "data-modeling",
+    "duckdb"
+  ],
+  "license": "MIT",
+  "name": "erdbt",
+  "repository": "https://github.com/datnguye/erdbt-harness",
+  "skills": "skills/",
+  "version": "0.1.0"
+}

@@ -1,0 +1,17 @@
+name: erdbt
+version: 0.1.0
+description: >-
+  Human-gated ERD-to-dbt harness. Requirements to concept to logical model to
+  dbt, with a sign-off at every gate.
+author:
+  name: Dat Nguyen
+  email: datnguyen.it09@gmail.com
+  url: https://github.com/datnguye
+homepage: https://github.com/datnguye/erdbt-harness
+repository: https://github.com/datnguye/erdbt-harness
+license: MIT
+keywords:
+  - dbt
+  - erd
+  - data-modeling
+  - duckdb

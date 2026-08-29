@@ -1,0 +1,55 @@
+[package]
+name = "erdbt-core"
+version = "0.0.0"
+edition = "2021"
+description = "Render authored erdbt sources into the Claude Code plugin tree."
+license = "MIT"
+repository = "https://github.com/datnguye/erdbt-harness"
+homepage = "https://github.com/datnguye/erdbt-harness"
+include = ["main.rs", "render/**/*.rs", "Cargo.toml"]
+
+[lib]
+name = "erdbt_core"
+path = "render/lib.rs"
+
+[[bin]]
+name = "erdbt"
+path = "main.rs"
+
+[[test]]
+name = "frontmatter"
+path = "../../tests/erdbt-core/unit/input/frontmatter.rs"
+
+[[test]]
+name = "sources"
+path = "../../tests/erdbt-core/unit/input/sources.rs"
+
+[[test]]
+name = "registry"
+path = "../../tests/erdbt-core/unit/formats/registry.rs"
+
+[[test]]
+name = "claude"
+path = "../../tests/erdbt-core/unit/formats/claude.rs"
+
+[[test]]
+name = "copilot"
+path = "../../tests/erdbt-core/unit/formats/copilot.rs"
+
+[[test]]
+name = "tree"
+path = "../../tests/erdbt-core/unit/output/tree.rs"
+
+[[test]]
+name = "bump"
+path = "../../tests/erdbt-core/unit/output/bump.rs"
+
+[[test]]
+name = "cli"
+path = "../../tests/erdbt-core/integration/cli.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
