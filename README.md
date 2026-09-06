@@ -26,15 +26,22 @@ rendered from one source, so neither can quietly drift from the other.
 ### The `erdbt` CLI
 
 The skills shell out to an `erdbt` binary, and neither plugin install brings it
-along. From a checkout of this repo sitting beside your project:
+along:
 
 ```
-cargo install --path ../erdbt-harness/src/erdbt-core
+cargo install erdbt-core
 ```
 
-Once the crate is on crates.io, `cargo install erdbt-core` will do the same
-without the checkout. The crate is `erdbt-core`; the binary it puts on your PATH
-is `erdbt`, so `erdbt --version` is the check that it landed.
+The crate is `erdbt-core`; the binary it puts on your PATH is `erdbt`, so
+`erdbt --version` is the check that it landed.
+
+Be clear about what that binary is today, though: it renders this repo's
+authored sources into the two plugin trees (`render`, `check`, `bump`, `clean`,
+`skills`), and it expects to run from a checkout of this repo. The modelling
+subcommands the skills call — `intake`, `ir check`, `ir diff`, `erd`,
+`preview`, `dbt-merge`, `conventions`, `physical` — are not implemented yet.
+The skills know this and refuse to invent output a missing subcommand would
+have produced, so the phases stop rather than lie to you.
 
 Working on this repo rather than using it? `cargo run -- <subcommand>` from the
 checkout skips the install entirely.

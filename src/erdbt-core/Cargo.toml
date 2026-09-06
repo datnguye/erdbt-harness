@@ -2,11 +2,14 @@
 name = "erdbt-core"
 version = "0.0.0"
 edition = "2021"
-description = "Render authored erdbt sources into the Claude Code plugin tree."
+description = "Render authored erdbt sources into the Claude Code and GitHub Copilot CLI plugin trees."
 license = "MIT"
 repository = "https://github.com/datnguye/erdbt-harness"
 homepage = "https://github.com/datnguye/erdbt-harness"
-include = ["main.rs", "render/**/*.rs", "Cargo.toml"]
+readme = "README.md"
+keywords = ["dbt", "erd", "data-modeling", "claude-code", "plugin"]
+categories = ["command-line-utilities", "development-tools"]
+include = ["main.rs", "render/**/*.rs", "Cargo.toml", "README.md"]
 
 [lib]
 name = "erdbt_core"
